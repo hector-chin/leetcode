@@ -13,7 +13,7 @@
 #
 # print(max(b))
 import numpy as np
+
 x = [1, 2, 3]
 a = np.array(x)
 print(a[0:len(a)])
-
