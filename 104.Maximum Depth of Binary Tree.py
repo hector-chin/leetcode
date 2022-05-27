@@ -5,23 +5,19 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def maxDepth(self, root) -> int:
-        depth_of_branch = 0
-        deepest_branch = 0
-        if root.val == None:
-            return 0
-        while True:
-            current_node = root
-            depth_of_branch += 1
-            if current_node.left != None:
-                current_node = current_node.left
-                continue
-            if current_node.right != None:
-                current_node = current_node.right
-                continue
-            if (current_node.left == None) & (current_node.right == None):
-                if depth_of_branch > deepest_branch:
-                    deepest_branch = depth_of_branch
-                    continue
-                continue
-        return deepest_branch
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        self.deepest_node = 0
+        if root == None:
+            return self.deepest_node
+
+        def find_depth_of_node(node, depth_of_prev_node):
+            if node == None:
+                if depth_of_prev_node > self.deepest_node:
+                    self.deepest_node = depth_of_prev_node
+                return
+            depth_of_current_node = depth_of_prev_node + 1
+            find_depth_of_node(node.right, depth_of_current_node)
+            find_depth_of_node(node.left, depth_of_current_node)
+
+        find_depth_of_node(root, 0)
+        return self.deepest_node
